@@ -11,6 +11,7 @@ class userController extends Controller
     public function index(){
         if(Session::get('user_id')){
             $artikelModel = artikelModel::orderByRaw("SUBSTRING_INDEX(id_artikel, '/', -1) + 0 DESC")->where('user_id',Session::get('user_id'))->get();
+            //dd(Session::get('user_id'));
             $data = [
                 'user_id' => Session::get('user_id'),
                 'artikel' => $artikelModel

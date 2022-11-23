@@ -22,9 +22,9 @@ class loginController extends Controller
             $loginModel = loginModel::get();
             $checkUsername = loginModel::where('username',$_POST['username'])->get();
             if(count($checkUsername) != 0){
-                foreach($loginModel as $lM){
+                foreach($checkUsername as $lM){
                     if(Hash::check($_POST['password'],$lM->password)){
-                        if($checkUsername[0]['level'] == "User"){
+                        if($lM->level == "User"){
                             Session::put('user_id', $lM->id);
                             return redirect('/user/dashboard')->with(["judul_alert" => "Selamat Datang" , "icon" => "success","isSuccess" => true]);
                         }else{
@@ -39,7 +39,18 @@ class loginController extends Controller
                 return redirect()->back()->with(["judul_alert" => "Gagal login" , "icon" => "warning","isSuccess" => false]);
             }
         }else if($_POST['cmd'] == "REGISTER"){
-
+            $password_hash = password_hash($request->password,PASSWORD_DEFAULT);
+            loginModel::create([
+                'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'alamat' => $request->alamat,
+                'username' => $request->username,
+                'password' => $password_hash,
+                'level' => "User",
+            ]);
+            return redirect()->back()->with(["judul_alert" => "Silahkan login kembali" , "icon" => "success","isSuccess" => true]);
         }else if($_POST['cmd'] == "UPDATE"){
             $password_hash = password_hash($request->password_update,PASSWORD_DEFAULT);
             loginModel::where('id',$_POST['user_id_update'])->update([
@@ -49,8 +60,10 @@ class loginController extends Controller
                 'tanggal_lahir' => $request->tanggal_lahir_update,
                 'alamat' => $request->alamat_update,
                 'username' => $request->username_update,
-                'password' => $password_hash
+                'password' => $password_hash,
+                'level' => "User",
             ]);
+            Session::put('user_id',$_POST['user_id_update']);
             return redirect('/user/dashboard')->with(["judul_alert" => "Selamat Datang" , "icon" => "success","isSuccess" => true]);
         }
     }

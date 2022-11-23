@@ -70,22 +70,6 @@
 	function loginGoogle(){
 		location.href="<?= url('/loginGoogle') ?>";
 	}
-	function update(){
-		if($('#password_update').val() == ""){
-			Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: 'Password tidak boleh kosong',
-                showConfirmButton: false,
-                timer: 1500
-            });
-		}else{
-            $('#buttonUpdatePOST').attr('type','submit');
-            	setTimeout(function() {
-                $("#buttonUpdatePOST").trigger('click');
-         	}, 500);
-		}
-	}
 </script>
 </body>
 </html>

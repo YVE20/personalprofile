@@ -11,7 +11,6 @@
 			    <form action="{{url('/checkAuth')}}" method="POST" enctype="multipart/form-data">
 					@csrf
 			    	<div class="modal-body">
-						<input type="hidden" name="user_id" id="user_id">
 			    		<center>
 							<div class="m-2">
 								<input type="text" name="username" id="username" required="" class="form-control" placeholder="Username"> 
@@ -85,7 +84,7 @@
 						</center>
 			    	</div>
 				    <div class="modal-footer">
-				    	<button type="button" onclick="update()" class="btn btn-primary" id="buttonUpdatePOST" name="cmd" value="UPDATE"> <i class="fas fa-save"></i> Update </button>
+				    	<button type="submit" class="btn btn-primary" name="cmd" value="UPDATE"> <i class="fas fa-save"></i> Update </button>
 				    </div>
 			    </form>
 		    </div>
