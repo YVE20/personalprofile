@@ -50,7 +50,7 @@ class loginController extends Controller
                 'password' => $password_hash,
                 'level' => "User",
             ]);
-            return redirect()->back()->with(["judul_alert" => "Silahkan login kembali" , "icon" => "success","isSuccess" => true]);
+            return redirect()->back()->with(["judul_alert" => "Silahkan login kembali ya" , "icon" => "success","isSuccess" => true]);
         }else if($_POST['cmd'] == "UPDATE"){
             $password_hash = password_hash($request->password_update,PASSWORD_DEFAULT);
             loginModel::where('id',$_POST['user_id_update'])->update([
